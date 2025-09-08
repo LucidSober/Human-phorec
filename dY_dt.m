@@ -2,6 +2,7 @@ function Y_prime = dY_dt(t, Y)
 
 global params states_r
 
+%[text] 
 states_r=Y2States(Y);
 
 %% check
@@ -45,6 +46,7 @@ else
     params.stimulus = 0;
 end
 
+%[text] 
 %% 2. 计算所有中间变量和导数
 % --- 光转导级联 ---
 [dStates_photo, E_star, ~] = cal_phototransduction_cascade();
@@ -62,14 +64,18 @@ dVm_dt = dVm_dt_V * 1000; % V/s -> mV/s
 
 % --- 门控变量导数 (dp/dt, dm/dt) ---
 Vm = states_r.Vm;
-% Ih gating (使用补充材料中的正确方程)
-alpha_h = 80 / (1 + exp((Vm + 78) / 14));
+% Ih gating (使用补充材料中的正确方程) @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+alpha_h = 80 / ( 1 + exp((Vm + 78) / 14) );
 beta_h = 180 / (1 + exp(-(Vm + 8) / 19));
+% alpha_h = 80 / ( 1 + exp((Vm + 65) / 7) ); % 简调
+% beta_h = 180 / (1 + exp(-(Vm + 6) / 9));
 dp_h_dt = (alpha_h * (1 - states_r.p_h) - beta_h * states_r.p_h) ;
 
-% IKv gating
+% IKv gating @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 alpha_Kv = 0.5 + (29.5) / (1 + exp(-(Vm - 5) / 17));
 beta_Kv = 0.25 + (99.75) / (1 + exp((Vm + 92) / 11));
+% alpha_Kv = 0.5 + (29.5) / (1 + exp(-(Vm - 5) / 17));
+% beta_Kv = 0.25 + (99.75) / (1 + exp((Vm + 92) / 11));
 dp_Kv_dt = (alpha_Kv * (1 - states_r.p_Kv) - beta_Kv * states_r.p_Kv) ;
 
 % ICaL gating
@@ -153,7 +159,7 @@ dCaif_dt = dif / params.Vif - dCa_lf_dt - dCa_hf_dt;
 dCais_dt = -(ion_currents.I_CaL_Ca + ion_currents.I_PMCA - 2 * ion_currents.I_NCX + ion_currents.I_L_Cais) / ...
 (2 * params.F * params.Vis) * 1e-6 - dCa_ls_dt - dCa_hs_dt + (dif / params.Vis) + (J_dif / params.Vis);
 
-
+%[text] 
 %% 3. 打包导数 (Pack Derivatives)
 % 按照与解包时完全相同的顺序，将所有导数打包到 dYdt 向量中
 Y_prime = zeros(92, 1);

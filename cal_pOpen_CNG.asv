@@ -1,0 +1,39 @@
+%[text] 此函数的简短摘要。
+%[text] 此函数的详细说明。
+function pOpen_CNG = cal_pOpen_CNG(result)
+
+global params
+
+F = params.F;
+R = params.R_gas;
+T = params.T;
+Cm = params.Cm;
+
+Ko = params.Ko;
+Nao = params.Nao;
+Cao_mM = params.Cao; % 假设params.Cao已经是mM单位
+% Clo = params.Clo;
+
+Nai=result.Nai;
+Ki=result.Ki;
+cGMP=result.cGMP;
+
+Vm_mV=result.Vm;
+Vm_V = Vm_mV * 1e-3;
+
+zFVRT_K = 1 * F * Vm_V / (R * T);
+zFVRT_Na = 1 * F * Vm_V / (R * T);
+zFVRT_Ca = 2 * F * Vm_V / (R * T);
+CF_K = zFVRT_K .* (Ki - Ko .* exp(-zFVRT_K)) ./ (1 - exp(-zFVRT_K));
+CF_Na = zFVRT_Na .* (Nai - Nao .* exp(-zFVRT_Na)) ./ (1 - exp(-zFVRT_Na));
+CF_Caos = zFVRT_Ca .* (Caos*1e-3 - Cao_mM .* exp(-zFVRT_Ca)) ./ (1 - exp(-zFVRT_Ca));
+% CF_Cais = zFVRT_Ca * (Cais*1e-3 - Cao_mM * exp(-zFVRT_Ca)) / (1 - exp(-zFVRT_Ca));
+
+pOpen_CNG = -2 / (2 + params.fCa) * params.Jdark * (cGMP / params.cGMPdark)^params.ncg / ...
+                (params.P_K_CNG * CF_K + params.P_Na_CNG * CF_Na + params.P_Ca_CNG * CF_Caos) / Cm;
+
+
+end
+
+%[appendix]{"version":"1.0"}
+%---

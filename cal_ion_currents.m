@@ -71,24 +71,29 @@ global params states_r
     Ca2_frac = (Caos - params.Caos_0) / (params.Caos_dark - params.Caos_0);
     ion_currents.I_NCKX = -params.fCa / (params.fCa + 2) * Ca2_frac * params.Jdark;
     
-    % --- 3. I_h ---
+    % --- 3. I_h --- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
     ion_currents.I_h_K = params.P_K_h * CF_K * p_h * Cm;
     ion_currents.I_h_Na = params.P_Na_h * CF_Na * p_h * Cm;
     ion_currents.I_h = ion_currents.I_h_K + ion_currents.I_h_Na;
-    
-    % --- 4. I_Kv ---
+    % ion_currents.I_h =ion_currents.I_h/2;
+
+    % --- 4. I_Kv --- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
     ion_currents.I_Kv = params.gKv * p_Kv * (Vm - E_K);
+    % ion_currents.I_Kv =ion_currents.I_Kv/2;
     
-    % --- 5. I_CaL ---
+    % --- 5. I_CaL --- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
     ion_currents.I_CaL_Ca = params.P_Ca_CaL * CF_Cais * p_CaL * Cm;
     ion_currents.I_CaL_K = params.P_K_CaL * CF_K * p_CaL * Cm;
     ion_currents.I_CaL_Na = params.P_Na_CaL * CF_Na * p_CaL * Cm;
     ion_currents.I_CaL = ion_currents.I_CaL_Ca + ion_currents.I_CaL_K + ion_currents.I_CaL_Na;
+    % ion_currents.I_CaL =ion_currents.I_CaL/2;
     
     % --- 6. I_ClCa ---
     mCl = 1 / (1 + exp((0.37 - Cais) / 0.09));
     ion_currents.I_ClCa = params.gCl * mCl * (Vm - E_Cl);
-    
+    % ion_currents.I_ClCa =ion_currents.I_ClCa/2;
+
+
     % --- 7. I_KCa ---
     mKCas = Cais / (Cais + 0.3);
     ion_currents.I_KCa = params.gKCa * m_KCa^2 * mKCas * (Vm - E_K);
@@ -105,8 +110,10 @@ global params states_r
                exp((eta_NCX - 1) * F * Vm_V / (R*T)) * Nao^3 * Cais * 1e-3);
     ion_currents.I_NCX = Cm * params.kNCX * fNCX_Nao * fNCX_Cao * fNCX_Vm;
     
-    % --- 10. I_NaK --- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-    ion_currents.I_NaK =   10.34 * (0.33 + (1 - 0.33) / (1 + exp(-(Vm + 57.1) / 27.6)))  ;  %@@@
+    % --- 10. I_NaK --- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+    % ion_currents.I_NaK =   10.34 * ( 0.2 + (1 - 0.2) / (1 + exp(-(Vm + 55) / 20)) )  ;  %@@@
+    ion_currents.I_NaK =   10.34 * ( 0.33 + (1 - 0.33) / (1 + exp(-(Vm + 57.1) / 27.6)) )  ;
+    % ion_currents.I_NaK =ion_currents.I_NaK/2;
     
     % --- 11. 泄漏电流 ---
     ion_currents.I_L_K = params.Gleak_K * (Vm - E_K);

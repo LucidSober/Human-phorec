@@ -3,8 +3,8 @@
 function params = init_params()
     % 返回包含所有参数的结构体
     
-
-    %% 光转导级联(phototransduction cascade)参数
+%[text] 
+%[text] 光转导级联(phototransduction cascade)参数
     % RK (rhodopsin kinase) 参数
     params.kRK1_0 = 0.1724;
     params.omega = 2.5;
@@ -57,7 +57,7 @@ function params = init_params()
     % 热激活
     params.ktherm = 0.0238;
     
-
+%[text] 
     %% cGMP和钙参数（√，部分小改动）
     % params.Vcyto = 0.045; % pL =V_os (L)转(pL) @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
     params.Vcyto = 0.03916; % pL
@@ -71,7 +71,6 @@ function params = init_params()
     
     % 钙相关参数
     params.fCa = 0.12;
-    % params.Jdark = 20; % pA  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ ????
     params.Jdark = 15;
     params.cGMPdark = 6.5; % μM
     params.ncg = 3.8;
@@ -86,8 +85,10 @@ function params = init_params()
     params.k3 = 1e-20; % s^-1 (钙扩散)
     
     
+    
+%[text] 
     %% 细胞参数（√，改动膜和体积）
-    % params.Cm = 4; % pF   @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 4~5
+    % params.Cm = 4; % pF  4~5
     % params.Cm = 5.9098; % pF
     params.Cm = 3.6;
     % mratio=(4/3.6);
@@ -98,9 +99,9 @@ function params = init_params()
     params.NA = 6.022e23; % molecules/mol
     
     % 体积参数 人35%-55%-10%  total = 128.5714
-    % params.V_os = 4.5e-14;  % >45 L = 45  μm^3 (外段)     @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-    % params.V_is = 7.07143e-14; % L = 70.7143 μm^3 (内段)     @@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-    % params.V_if = 1.28571e-14; % L = 12.8571 μm^3 (内段纤维)   @@@@@@@@@@@@@@@@@@@@@@@@@@@ 
+    % params.V_os = 4.5e-14;  % >45 L = 45  μm^3 (外段)  
+    % params.V_is = 7.07143e-14; % L = 70.7143 μm^3 (内段)    
+    % params.V_if = 1.28571e-14; % L = 12.8571 μm^3 (内段纤维) 
 
     params.V_os = 3.916e-14; 
     params.V_is = 2.3496e-14; 
@@ -118,6 +119,8 @@ function params = init_params()
     params.SVRatio_hm_diff=(params.Cm/params.V_cell)/(3.6/78.32);
     params.MembraneRatio=params.Cm/3.6;
     
+
+%[text] 
     %% 离子浓度
     % 外部浓度
     params.Cao = 1.6; % mM (1600 μM = 1.6 mM)
@@ -130,7 +133,7 @@ function params = init_params()
     params.Ki_0 = 140; % mM
     params.Cli_0 = 30; % mM
     params.Cais_0 = 0.1; % μM
-    
+%[text] 
     %% 钙系统参数
     params.DCa = 6e-8; % dm^2/s
     params.delta = 3e-5; % dm
@@ -143,7 +146,7 @@ function params = init_params()
     params.Hb2 = 90; % s^-1
     params.BL = 500; % μM
     params.BH = 300; % μM
-    
+%[text] 
     %% 通道电导
     % human_mouse_scale_factor=1.5;     
     g_human_ratio=1;
@@ -172,33 +175,32 @@ function params = init_params()
     params.P_K_CNG = (1 / params.Cm)*CNG_human_ratio ;    
     params.P_Na_CNG = (1 / params.Cm)*CNG_human_ratio  ;
     params.P_Ca_CNG = (6 / params.Cm)*CNG_human_ratio ;
-    
+%[text] 
     %% 泵和交换器参数
     % pump_human_ratio = params.Cm / 3.6;
     pump_human_ratio=1;
     % pump_human_ratio=params.SVRatio_hm_diff;
 
     % params.kPMCA = 10;
-    params.kPMCA = 10; % pA/μM   @@@
+    params.kPMCA = 10; % pA/μM  
     params.Km_Cai = 0.0005; % mM PMCA的钙亲和度
     params.kNCX = 250*pump_human_ratio;
-    % params.kNCX = 100; % pA   @@@ 原250
     params.k_NKCC1 = 0.005; % s^-1
     params.k_KCC2 = 0.046; % s^-1
     params.kNKCC1 = params.k_NKCC1;
     params.kKCC2 = params.k_KCC2;
-    
+%[text] 
     %% 泄漏电导
     Gleak_human_ratio=1;
-    params.Gleak_K = 0.00011488937611594242     *Gleak_human_ratio; % nS   @@@
-    params.Gleak_Na = 0.000071150566012260358   *Gleak_human_ratio; % nS   @@@
-    params.Gleak_Cais = 0.0002481452439628276   *Gleak_human_ratio; % nS   @@@
-    params.Gleak_Cl = 0.00035986965484864007    *Gleak_human_ratio; % nS   @@@
-    params.Gleak_Caos = 0.000021232320024139139 *Gleak_human_ratio; % nS   @@@
-    
+    params.Gleak_K = 0.00011488937611594242     *Gleak_human_ratio; % nS  
+    params.Gleak_Na = 0.000071150566012260358   *Gleak_human_ratio; % nS 
+    params.Gleak_Cais = 0.0002481452439628276   *Gleak_human_ratio; % nS 
+    params.Gleak_Cl = 0.00035986965484864007    *Gleak_human_ratio; % nS 
+    params.Gleak_Caos = 0.000021232320024139139 *Gleak_human_ratio; % nS 
+%[text] 
     %% 数值计算参数
     params.numConcFactor = 1 / (6.022e5 * params.Vcyto); % 浓度转换因子
-    
+%[text] 
     %% 总量常数（用于光转导） 影响关系：（Rh→Gt→PDE→cGMP→CNG→Ca²⁺外排）（Rh是这个值，建议不变，另外几个按照真实比例计算）
     params.Rtot = 100000000.0;
     params.PDEtot = 2000000.0;
