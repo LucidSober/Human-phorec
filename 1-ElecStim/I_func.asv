@@ -1,0 +1,25 @@
+%[text] 此函数的简短摘要。
+%[text] 此函数的详细说明。
+function I = I_func(te)
+
+global params
+
+f = params.f; 
+pt=params.stim_keypoint_t
+lp=params.linparam;
+
+pha = mod(te, 1/f);
+
+if( pha>=pt(1) && pha<=pt(2) )
+    I = lp(1,1) * pha + lp(1,2); % Example calculation for the first condition
+elseif( pha>pt(2) && pha<pt(3) )
+end
+
+
+
+% I=interp1(params.min_step_t, params.Stim_wave, te, 'previous', 0);
+
+end
+
+%[appendix]{"version":"1.0"}
+%---

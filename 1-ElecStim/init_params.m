@@ -7,6 +7,12 @@ function params = init_params()
 %[text] 光转导级联(phototransduction cascade)参数
 %[text] R(紫红质) 在光子的作用下→ R\*    促进   Gt→Gt\* 激活 PDE    促进cGMP降解为GMP   影响 CNG（→Vm）
 %[text] 
+    % Stim & Radles
+    params.Rf = 200;        % Ohm
+    params.Cdl = 1e-6;      % F
+    params.Rs = 100;        % Ohm
+    
+    
     % RK (rhodopsin kinase) 参数
     params.kRK1_0 = 0.1724;
     params.omega = 2.5;
