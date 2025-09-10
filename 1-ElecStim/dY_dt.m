@@ -1,12 +1,10 @@
 function Y_prime = dY_dt(t, Y)
 
-global params states_r
+global params states_r last_t
 
 % persistent last_t
-% if isempty(last_t)
-%     last_t = t;
-% end
-% dt = t - last_t; 
+
+% test = t - last_t
 % last_t = t;
 
 %[text] 

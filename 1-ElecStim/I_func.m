@@ -2,17 +2,16 @@
 %[text] 此函数的详细说明。
 function I = I_func(te)
 
-global params
+global params 
 
+f = params.f; 
+amp=params.stim_amp;
+pt=params.stim_keypoint_t;
+lp=params.stim_linparam;
 
+pha = mod(te, 1/f);
 
 if(params.stimwavetype==1)
-    f = params.f; 
-    amp=params.stim_amp;
-    pt=params.stim_keypoint_t;
-    lp=params.stim_linparam;
-    
-    pha = mod(te, 1/f);
     
     if( pha>=pt(1) && pha<=pt(2) )
         I = lp(1,1) * pha + lp(1,2);
@@ -32,13 +31,7 @@ if(params.stimwavetype==1)
         I = 0;
     end
 
-elseif(params.stimwavetype==2)
-    f = params.f; 
-    amp=params.stim_amp;
-    pt=params.stim_keypoint_t;
-    lp=params.stim_linparam;
-    
-    pha = mod(te, 1/f);
+elseif(params.stimwavetype==2)   
 
     if( pha>=pt(1) && pha<=pt(2) )
         I = lp(1,1) * pha + lp(1,2);
@@ -50,6 +43,25 @@ elseif(params.stimwavetype==2)
         I = 0;
     end
 
+elseif(params.stimwavetype==3)
+    if( pha>=pt(1) && pha<=pt(2) )
+        I = lp(1,1) * pha + lp(1,2);
+    elseif( pha>pt(2) && pha<=pt(3) )
+        I = lp(2,1) * pha + lp(2,2);
+    elseif( pha>pt(3) && pha<=pt(4) )
+        I = lp(3,1) * pha + lp(3,2);
+    else
+        I = 0;
+    end
+elseif(params.stimwavetype==4)
+
+    if( pha>=pt(1) && pha<=pt(2) )
+        I = lp(1,1) * pha + lp(1,2);
+    elseif( pha>pt(2) && pha<=pt(3) )
+        I = lp(2,1) * pha + lp(2,2);
+    else
+        I = 0;
+    end
 end
 
 

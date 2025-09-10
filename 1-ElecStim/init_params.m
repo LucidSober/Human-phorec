@@ -11,6 +11,10 @@ function params = init_params()
     params.Rf = 200;        % Ohm
     params.Cdl = 1e-6;      % F
     params.Rs = 100;        % Ohm
+
+    % params.Rf = 2e6;        % Ohm
+    % params.Cdl = 1e-11;      % F
+    % params.Rs = 3e6;        % Ohm
     
     
     % RK (rhodopsin kinase) 参数
