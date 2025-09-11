@@ -6,7 +6,7 @@ global params states_r last_t
 
 % test = t - last_t
 % last_t = t;
-
+dt = getappdata(0,'dt_prev');
 %[text] 
 states_r=Y2States(Y);
 
@@ -61,7 +61,7 @@ end
 % --- 离子电流 ---
 ion_currents = cal_ion_currents();
 
-dt=1e6; % 步长不匹配，要调节
+% dt=1e6; % 步长不匹配，要调节
 % stim
 if( (params.Stim ==1) && (t>=params.stim_start))
     te=t-params.stim_start;

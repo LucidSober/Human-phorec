@@ -10,7 +10,10 @@ function plot_final_results_figure(results, t_results,t_range)
     
     % %%%%%%%%%%%%%%%%%%%%%% 关键修改 %%%%%%%%%%%%%%%%%%%%%%%%%%
     % 将颜色方案从灰度(gray)修改为彩色(jet)
-    colors = jet(length(results));
+    % colors = jet(length(results));
+    colors = [linspace(0,1,length(results))' ...   % R 通道：从 0 到 1
+          zeros(length(results),1) ...         % G 通道：保持 0
+          linspace(1,0,length(results))'];     % B 通道：从 1 到 0
     % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     
     Cm = params.Cm; 
