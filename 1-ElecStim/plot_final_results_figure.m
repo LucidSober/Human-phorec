@@ -37,8 +37,8 @@ function plot_final_results_figure(results, t_results,t_range)
 
     %% 第1行
     plot_subplot(1, cellfun(@(x) x.Vm, results, 'UniformOutput', false), '(mV)', '1.Membrane potential', [-60, -30], 1);
-    plot_subplot(2, cellfun(@(x) x.ICNG, results, 'UniformOutput', false), '(pA/pF)', '2.I_{CNG}', [-5.0, 1.0], 1/Cm);
-    plot_subplot(3, cellfun(@(x) x.INCKX, results, 'UniformOutput', false), '(pA/pF)', '3.I_{NCKX}', [-0.30, 0.10], 1/Cm);
+    plot_subplot(2, cellfun(@(x) x.ICNG, results, 'UniformOutput', false), '(pA/pF)', '2.I_{CNG}_OS', [-5.0, 1.0], 1/Cm);
+    plot_subplot(3, cellfun(@(x) x.INCKX, results, 'UniformOutput', false), '(pA/pF)', '3.I_{NCKX_OS}', [-0.30, 0.10], 1/Cm);
     plot_subplot(4, cellfun(@(x) x.INaK, results, 'UniformOutput', false), '(pA/pF)', '4.I_{NaK}', [1.80, 2.40], 1/Cm);
 
     %% 第2行
@@ -61,7 +61,7 @@ function plot_final_results_figure(results, t_results,t_range)
     plot_subplot(16, cellfun(@(x) x.IL_Cl, results, 'UniformOutput', false), '(fA/pF)', '16.I_{L,Cl}', [-3.0, 1.0], 1000/Cm);
 
     %% 第5行
-    plot_subplot(17, cellfun(@(x) x.IL_Caos, results, 'UniformOutput', false), '(fA/pF)', '17.I_{L,Caos}', [-1.20, -0.80], 1000/Cm);
+    plot_subplot(17, cellfun(@(x) x.IL_Caos, results, 'UniformOutput', false), '(fA/pF)', '17.I_{L,Caos_OS}', [-1.20, -0.80], 1000/Cm);
     plot_subplot(18, cellfun(@(x) x.IL_Cais, results, 'UniformOutput', false), '(fA/pF)', '18.I_{L,Cais}', [-14.5, -10.5], 1000/Cm);
     plot_subplot(19, cellfun(@(x) x.Caos, results, 'UniformOutput', false), '(\muM)', '[19.Ca^{2+}]_{os}', [0.000, 0.120], 1);
     plot_subplot(20, cellfun(@(x) x.Cais, results, 'UniformOutput', false), '(\muM)', '[20.Ca^{2+}]_{is}', [0.024, 0.072], 1);

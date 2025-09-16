@@ -1,13 +1,16 @@
 function Y_prime = dY_dt(t, Y)
 
-global params states_r 
+global params states_r last_t
 
+% persistent last_t
 
+% test = t - last_t
+% last_t = t;
 dt = getappdata(0,'dt_prev');
-%%
-%[text] ## check
+%[text] 
 states_r=Y2States(Y);
 
+%% check
 if states_r.Vm > 50 || states_r.Vm < -100
     warning('Vm out of range: %.2f mV', Y(1));
     Y(1) = max(min(Y(1), 50), -100);
@@ -48,16 +51,9 @@ else
     params.stimulus = 0;
 end
 
-% 处理疾病
-if(params.disease_type==params.disease_GNAT1)
-    params.kG1_0 = 0;
-elseif(params.disease_type==params.disease_PDE6AB)
-    params.betasub = 0;
-end
 
 %[text] 
 %% 2. 计算所有中间变量和导数
-
 % --- 光转导级联 ---
 [dStates_photo, E_star, ~] = cal_phototransduction_cascade();
 
@@ -67,7 +63,7 @@ ion_currents = cal_ion_currents();
 
 % dt=1e6; % 步长不匹配，要调节
 % stim
-if( (params.Stim >0) && (t>=params.stim_start))
+if( (params.Stim ==1) && (t>=params.stim_start))
     te=t-params.stim_start;
     Rs=params.Rs;
     Rf=params.Rf;

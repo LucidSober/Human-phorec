@@ -19,9 +19,7 @@ if(params.Stim == 1) % dune wave
         I = smooth_piecewise(pha+params.stim_start, params.t_amp_top_real,  params.k0_Herm,0   ,  params.stim_amp,params.y1_Herm  );
     
     elseif( pha>pt(3) && pha<=pt(4) )
-        beta_front=0.03;
-        beta_end=0.1;
-        [I,~] = smooth_piecewise_back(pha+params.stim_start, params.t_amp_top_real+params.t_Herm_dt,params.stim_t_total,params.y1_Herm,beta_front,beta_end);
+        [I,~] = smooth_piecewise_back(pha+params.stim_start, params.t_amp_top_real+params.t_Herm_dt,params.stim_t_total,params.y1_Herm,0.0618);
         % I =0;
         % I = lp(2,1) * pha + lp(2,2);
     else

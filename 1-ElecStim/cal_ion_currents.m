@@ -122,6 +122,13 @@ global params states_r
     ion_currents.I_L_Cl = params.Gleak_Cl * (Vm - E_Cl);
     ion_currents.I_L_Caos = params.Gleak_Caos * (Vm - E_Caos);
     
+
+    if(params.disease_type==params.disease_OSNecrosis)
+        ion_currents.I_CNG=0;
+        ion_currents.I_NCKX=0;
+        ion_currents.I_L_Caos=0;
+    end
+
     %% 5. 总电流 pA
     ion_currents.I_total = ion_currents.I_CNG + ion_currents.I_NCKX + ion_currents.I_h + ion_currents.I_Kv + ...
                            ion_currents.I_CaL + ion_currents.I_ClCa + ion_currents.I_KCa + ion_currents.I_NCX + ...
